@@ -1,0 +1,87 @@
+﻿
+#map {
+    margin-top: 10px;
+    width: 90%;
+    height: 150px;
+}
+
+#mapfull {
+    margin-top: 10px;
+    width: 90%;
+    height: 150px;
+}
+
+
+.map-title {
+    margin-top: 10px;
+    font-size: 1em;
+    /*color:#0780BE;*/
+    color: black;
+    float: left;
+}
+
+.info {
+    padding: 2px 4px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    width: auto;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    font-size: 9px;
+    text-align: left;
+    line-height: 9px;
+    color: #555;
+}
+
+
+.legend i {
+    width: 8px;
+    height: 8px;
+    float: left;
+    margin-right: 3px;
+    opacity: 0.7;
+}
+
+
+
+
+
+@media screen and (min-width:760px) {
+    #map {
+        width: 90%;
+        height: 150px;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    #map {
+        width: 90%;
+        height: 150px;
+    }
+}
+
+@media screen and (min-width:760px) {
+    #mapfull {
+        width: 90%;
+        height: 250px;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    #mapfull {
+        width: 90%;
+        height: 400px;
+    }
+}
+
+
+

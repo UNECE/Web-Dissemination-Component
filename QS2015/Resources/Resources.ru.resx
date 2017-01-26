@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChartDomains_Click_Instruction" xml:space="preserve">
+    <value>Нажмите на показатель для просмотра диаграммы</value>
+  </data>
+  <data name="ChartDomains_Title" xml:space="preserve">
+    <value>Диаграммы</value>
+  </data>
+  <data name="Charts_Click_Instruction" xml:space="preserve">
+    <value>Добавьте страны под диаграммой</value>
+  </data>
+  <data name="Charts_Footnote" xml:space="preserve">
+    <value>Сноска:</value>
+  </data>
+  <data name="Charts_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="Charts_Previous" xml:space="preserve">
+    <value>Предыдущий</value>
+  </data>
+  <data name="Charts_See_Table" xml:space="preserve">
+    <value>Открыть таблицу</value>
+  </data>
+  <data name="Charts_Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="Countries_Click_Instruction" xml:space="preserve">
+    <value>Нажмите на страну для просмотра странового профиля</value>
+  </data>
+  <data name="Countries_Title" xml:space="preserve">
+    <value>Страновые профили</value>
+  </data>
+  <data name="CountryProfile_Add_Countries" xml:space="preserve">
+    <value>Добавьте страны</value>
+  </data>
+  <data name="CountryProfile_Year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="CountryRankings_Click_Instruction" xml:space="preserve">
+    <value>Нажмите на показатель для просмотра списка стран, отсортированных по показателю</value>
+  </data>
+  <data name="CountryRankings_Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="CountryRankings_Footnote" xml:space="preserve">
+    <value>Сноска:</value>
+  </data>
+  <data name="CountryRankings_Ranking" xml:space="preserve">
+    <value>Список</value>
+  </data>
+  <data name="CountryRankings_Table" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="CountryRankings_Title" xml:space="preserve">
+    <value>Список стран по показателю</value>
+  </data>
+  <data name="CountryRankings_Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="CountryRanking_Numbering" xml:space="preserve">
+    <value>№№</value>
+  </data>
+  <data name="DataMap_Footnote" xml:space="preserve">
+    <value>Сноска:</value>
+  </data>
+  <data name="DataMap_Hover_Country" xml:space="preserve">
+    <value>Наведите курсор на страну</value>
+  </data>
+  <data name="DataMap_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="DataMap_No_Data" xml:space="preserve">
+    <value>нет данных</value>
+  </data>
+  <data name="DataMap_Previous" xml:space="preserve">
+    <value>Предыдущий</value>
+  </data>
+  <data name="DataMap_Year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="Home_Charts" xml:space="preserve">
+    <value>Диаграммы</value>
+  </data>
+  <data name="Home_CountryProfiles" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="Home_CountryRanking" xml:space="preserve">
+    <value>Списки</value>
+  </data>
+  <data name="Home_Hover_Country" xml:space="preserve">
+    <value>Наведите курсор на страну</value>
+  </data>
+  <data name="Home_Maps" xml:space="preserve">
+    <value>Карты</value>
+  </data>
+  <data name="Home_Next" xml:space="preserve">
+    <value>Следующий</value>
+  </data>
+  <data name="Home_No_Data" xml:space="preserve">
+    <value>нет данных</value>
+  </data>
+  <data name="Home_PDF" xml:space="preserve">
+    <value>PDF</value>
+  </data>
+  <data name="Home_Previous" xml:space="preserve">
+    <value>Предыдущий</value>
+  </data>
+  <data name="Home_Title" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="Home_Year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="MapDomains_Click_Instruction" xml:space="preserve">
+    <value>Нажмите на показатель для просмотра карты</value>
+  </data>
+  <data name="MapDomains_Title" xml:space="preserve">
+    <value>Карты</value>
+  </data>
+  <data name="PDFProfiles_Click_Instruction" xml:space="preserve">
+    <value>Нажмите на страну для просмотра странового профиля в PDF</value>
+  </data>
+  <data name="PDFProfiles_Title" xml:space="preserve">
+    <value>Страновые профили в PDF</value>
+  </data>
+  <data name="Shared_Banner_Home" xml:space="preserve">
+    <value>Домой</value>
+  </data>
+  <data name="Shared_Banner_Title" xml:space="preserve">
+    <value>ЕЭК ООН</value>
+  </data>
+  <data name="Shared_Footer_Disclaimer" xml:space="preserve">
+    <value>© Европейская экономическая комиссия ООН</value>
+  </data>
+  <data name="Shared_Icon_Home" xml:space="preserve">
+    <value>Домой</value>
+  </data>
+  <data name="Shared_Icon_Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="Shared_Menu_About" xml:space="preserve">
+    <value>О БАЗЕ ДАННЫХ</value>
+  </data>
+  <data name="Shared_Menu_Charts" xml:space="preserve">
+    <value>ДИАГРАММЫ</value>
+  </data>
+  <data name="Shared_Menu_Country_Profiles" xml:space="preserve">
+    <value>СТРАНОВЫЕ ПРОФИЛИ</value>
+  </data>
+  <data name="Shared_Menu_Country_Rankings" xml:space="preserve">
+    <value>СПИСКИ СТРАН</value>
+  </data>
+  <data name="Shared_Menu_Data_Locator" xml:space="preserve">
+    <value>УКАЗАТЕЛЬ ДАННЫХ</value>
+  </data>
+  <data name="Shared_Menu_English" xml:space="preserve">
+    <value>* ENGLISH</value>
+  </data>
+  <data name="Shared_Menu_Glossary" xml:space="preserve">
+    <value>ГЛОССАРИЙ ТЕРМИНОВ</value>
+  </data>
+  <data name="Shared_Menu_Home" xml:space="preserve">
+    <value>ДОМОЙ</value>
+  </data>
+  <data name="Shared_Menu_Maps" xml:space="preserve">
+    <value>КАРТЫ</value>
+  </data>
+  <data name="Shared_Menu_PDF_Publications" xml:space="preserve">
+    <value>PDF-ПУБЛИКАЦИИ</value>
+  </data>
+  <data name="Shared_Menu_Russian" xml:space="preserve">
+    <value>* РУССКИЙ</value>
+  </data>
+  <data name="Shared_Menu_Statistical_Division" xml:space="preserve">
+    <value>СТАТИСТИЧЕСКИЙ ОТДЕЛ</value>
+  </data>
+  <data name="Shared_Title" xml:space="preserve">
+    <value>Статистическая база данных - Европейская экономическая комиссия ООН</value>
+  </data>
+  <data name="TimeSeries_Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="TimeSeries_Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="CountryRanking_Year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="Charts_More_Data" xml:space="preserve">
+    <value>Увидеть больше данных</value>
+  </data>
+  <data name="CountryRanking_More_Data" xml:space="preserve">
+    <value>Увидеть больше данных</value>
+  </data>
+  <data name="DataMap_More_Data" xml:space="preserve">
+    <value>Увидеть больше данных</value>
+  </data>
+  <data name="About_Compiled_1" xml:space="preserve">
+    <value>Данные собираются секретариатом из различных официальных национальных и международных источников.</value>
+  </data>
+  <data name="About_Compiled_2" xml:space="preserve">
+    <value>Системой обеспечивается быстрый поиск данных, а также их представление в виде, удобном для международных сопоставлений и анализа.</value>
+  </data>
+  <data name="About_Compiled_3" xml:space="preserve">
+    <value>Особый интерес для пользователей могут представлять данные по странам СНГ и центральной и восточной Европы, которые трудно найти где-либо еще в единой интегрированной базе данных.</value>
+  </data>
+  <data name="About_Glossary_1" xml:space="preserve">
+    <value>Этот</value>
+  </data>
+  <data name="About_Glossary_2" xml:space="preserve">
+    <value>Глоссарий терминов</value>
+  </data>
+  <data name="About_Glossary_3" xml:space="preserve">
+    <value>дает определения терминов (только на англ.), которые используются в базе данных.</value>
+  </data>
+  <data name="About_Note" xml:space="preserve">
+    <value>Замечание:</value>
+  </data>
+  <data name="About_Note_Text_1" xml:space="preserve">
+    <value>Некоторые временные ряды, например, такие, как численность населения и занятость, присутствуют в обоих предметных областях.</value>
+  </data>
+  <data name="About_Note_Text_2" xml:space="preserve">
+    <value>Значения этих временных серий могут различаться. Причиной является то, что используются разные источники и методологические определения.</value>
+  </data>
+  <data name="About_Note_Text_3" xml:space="preserve">
+    <value>Эти источники и определения указаны в метаданных для таблиц.</value>
+  </data>
+  <data name="About_Software_1" xml:space="preserve">
+    <value>Статистический отдел ЕЭК ООН использует следующие программные компоненты для разработки программного обеспечения:</value>
+  </data>
+  <data name="About_Software_2" xml:space="preserve">
+    <value>PC-Axis</value>
+  </data>
+  <data name="About_Software_3" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="About_Software_4" xml:space="preserve">
+    <value>JIDE Software</value>
+  </data>
+  <data name="About_This_Database" xml:space="preserve">
+    <value>Эта база данных поддерживается Статистическим отделом ЕЭК ООН. Она обеспечивает всем желающим бесплатный Интернет-доступ к статистическим данным. Сгруппированные по предметным областям, многомерные таблицы (кубы) представляют данные по странам, социально-экономическим разрезам и временным периодам.</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>О статистической базе данных ЕЭК ООН</value>
+  </data>
+  <data name="Logarithmic_Scale_Base_2" xml:space="preserve">
+    <value>(ЗАМЕЧАНИЕ: шкала Log2)</value>
+  </data>
+  <data name="Logarithmic_Scale_Base_10" xml:space="preserve">
+    <value>(ЗАМЕЧАНИЕ: шкала Log10)</value>
+  </data>
+</root>

@@ -1,0 +1,20 @@
+[
+ {"Name":"Economy", "Code": "1"},
+ {"Name":"Family", "Code": "17"},
+ {"Name":"Fertility", "Code": "2"},
+ {"Name":"Forestry", "Code": "23"},
+ {"Name":"Gender, Decision-making", "Code": "20"},
+ {"Name":"Gender, Education", "Code": "19"},
+ {"Name":"Gender, Labour Force", "Code": "18"},
+ {"Name":"Gender, Science & ICT", "Code": "21"},
+ {"Name":"Gender, Work-life balance", "Code": "22"},
+ {"Name":"General", "Code": "4"},
+ {"Name":"Health", "Code": "5"},
+ {"Name":"Millennium Development Goals", "Code": "14"},
+ {"Name":"Population", "Code": "7"},
+ {"Name":"Transport, Inland Waterways", "Code": "11"},
+ {"Name":"Transport, Pipelines", "Code": "12"},
+ {"Name":"Transport, Rail", "Code": "10"},
+ {"Name":"Transport, Road", "Code": "9"},
+ {"Name":"Transport, Road Safety", "Code": "8"}
+]

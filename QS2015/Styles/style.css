@@ -1,0 +1,100 @@
+.menu-settings-panel {
+    display:none;
+    background-color: lightsteelblue;
+    padding-top: 0px; 
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.menu-settings-element {
+    border-bottom: 1px solid lightgrey;
+}
+
+.menu-settings-element b {
+    color: grey;
+}
+
+.next-map-btn:hover {
+    
+}
+
+.previous-map-btn:hover  {
+    
+}
+
+.next-map-single-btn:hover {
+    
+}
+
+.previous-map-single-btn:hover  {
+    
+}
+
+
+.map-navigation {
+    margin: 0px 10px 10px 0px;
+    width: 90%;
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    border-radius: 4px;
+    background: #C7C7C7;
+}
+
+
+.map-navigation b {
+    color: #FFF;
+}
+
+.map-navigation-container {
+    margin: 0px auto;
+    width: 200px;
+}
+
+.next-chart-single-btn:hover {
+    
+}
+
+.previous-chart-single-btn:hover  {
+    
+}
+
+.chart-navigation {
+    margin: 0px auto;
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: 4px;
+    background: #C7C7C7;
+}
+
+
+.chart-navigation b {
+    color: #FFF;
+}
+
+.chart-navigation-container {
+    margin: 0px auto;
+    width: 200px;
+}
+
+.googleplaybadge {
+    width: 152px; 
+    height: 45px;
+    margin: 2px 2px 2px 2px;
+}
+

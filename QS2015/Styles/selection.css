@@ -1,0 +1,412 @@
+﻿.quick-stats-footnote {
+    font-size: 1em;
+}
+
+.quick-stats-selection-instruction {
+    margin-top:10px; 
+    color: darkred; 
+    font-size: 1.2em;
+}
+
+.quick-stats-selection-group {
+    margin-top: 1em;
+    color: grey;
+}
+
+.quick-stats-selection-group b {
+    font-size: 1em;
+}
+
+.quick-stats-selection-element {
+    font-size: 0.8em;
+    display: block;
+}
+
+.quick-stats-selection-element div {
+    color: #0780be;
+    font-size: 1em; 
+    padding-left: 2em; 
+    text-indent: -2em; 
+    margin-left: 1em; 
+}
+
+.quick-stats-more-data a {
+    font-size: 0.8em; 
+    color: red;
+}
+
+.country-table {
+    vertical-align: bottom; 
+    display: table;
+}
+
+.country-row {
+    vertical-align: bottom; 
+    display: table-row;
+}
+
+.country-cell {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.country-cell a {
+    vertical-align: text-top;
+    display: block;
+    vertical-align: middle;
+    max-height: 100%;
+    color: #0780be;
+}
+
+.country-cell a input {
+    vertical-align: text-top;
+    display: block;
+    vertical-align: middle;
+    max-height: 100%;
+}
+
+.country-cell img {
+    vertical-align: text-top;
+    display: block;
+    vertical-align: middle;
+    max-height: 100%;
+}
+
+
+.country-time-series {
+    font-size: 0.8em;
+    vertical-align: bottom; 
+    white-space: nowrap;
+}
+
+.country-time-series a {
+    vertical-align: bottom; 
+    color: #0780be;
+}
+
+
+.country-selection-element {
+    vertical-align: bottom; 
+    display: block;
+    font-size: 0.8em;
+}
+
+.country-selection-checkbox {
+    vertical-align: bottom; 
+    display: block;
+}
+
+
+.country-checkbox {
+    vertical-align: bottom; 
+}
+
+
+.time-series-navigation-bar {
+    margin-top: -5px;
+}
+
+ 
+.time-series-table {
+    display: table;
+}
+.time-series-row {
+    display: table-row;
+}
+.time-series-cell {
+    font-size: 0.9em;
+    padding-left: 30px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .time-series-cell b {
+        color: darkred;
+    }
+
+    .time-series-cell span {
+        color: #0780be;
+    }
+
+
+.float-right {
+    float: right;
+}
+
+
+
+.float-left {
+    float: left;
+}
+
+
+
+
+
+
+
+
+
+.country-ranking-table {
+    display: table;
+}
+.country-ranking-row {
+    display: table-row;
+}
+.country-ranking-cell {
+    font-size: 0.8em;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.country-ranking-country-name {
+    font-size: 0.8em;
+    color: #0780be;
+}
+
+.country-ranking-country-value {
+    font-size: 0.8em;
+    color: black;
+}
+
+.country-ranking-cell a {
+    display: block;
+}
+
+.country-ranking-cell img {
+    max-height: 100%;
+    display: block;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.country-ranking-cell div {
+    vertical-align: text-top;
+    display: block;
+    vertical-align: middle;
+    max-height: 100%;
+}
+
+
+
+
+
+
+.country-ranking-bar { 
+    max-height: 100%;
+    position: relative; 
+    width: 100%;
+}
+
+.country-ranking-coloring {
+
+}
+
+.country-ranking-coloring img {
+    max-height: 100%;
+    display: block;
+    border-width: 1px; 
+    border-color: lightgrey; 
+    border-style: solid; 
+    height: 1.5em; 
+}
+
+.country-ranking-name { 
+    position: absolute; 
+    font-size: 0.8em;
+    top: 1px; 
+    width: 100%; 
+}
+
+.country-ranking-name a {
+    font-size: 0.8em;
+    display: block;
+}
+
+.country-ranking-name-color-left a { 
+    color: white;
+}
+
+.country-ranking-name-color-right a { 
+    color: #0780be;
+}
+
+
+.country-ranking-value {
+    position: absolute; 
+    font-size: 0.8em;
+    top: 1px; 
+    width: 100%
+}
+
+
+    .country-ranking-value a {
+        font-size: 0.8em;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {width: 100%; margin: 10px auto;}
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+ul.tabs li {
+	
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 32px;
+	line-height: 31px;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #F0F0F0;
+	overflow: hidden;
+	position: relative;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 0.9em;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+ul.tabs li a:hover {
+	background: #ccc;
+}	
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+.tab_container {
+	border: 1px solid #999;
+	border-top: none;
+	clear: both;
+	float: left; 
+	width: 100%;
+	background: #fff;
+	-moz-border-radius-bottomright: 5px;
+	-khtml-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-khtml-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+.tab_content {
+	padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+	font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.country-profile-table {
+    display: table; 
+    border-collapse: separate; 
+    border-spacing: 10px 0px;
+}
+
+.country-profile-row {
+    display: table-row;
+}
+
+.country-profile-domain {
+    display: table-cell; 
+    color: darkred; 
+    /*background-color: white;*/
+    font-size: 0.9em; 
+}
+
+.country-profile-cell {
+    display: table-cell;
+}
+
+.country-profile-cell-value {
+    display: table-cell;
+    font-size: 0.9em;
+}
+
+.country-profile-cell-metadata {
+    display: table-cell;
+    font-size: 0.9em;
+}
+
+.country-profile-first-country a {
+    font-size: 1.1em;
+    color: darkgreen;
+    font-weight: bold;
+    display: block;
+}
+
+.country-profile-first-country-name {
+    font-size: 0.9em;
+    font-weight: bold;
+    display: none;
+}
+
+.country-profile-next {
+
+}
+
+.country-profile-next a{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.country-profile-next-country-name {
+    display: block;
+}
+
+.country-profile-variable a {
+    font-size: 0.9em;
+    color: #0780be;
+}
+
+.country-profile-border {
+    border-bottom: 1px solid white;
+}
+
+.country-profile-title {
+    font-size: 1.1em;
+    width: 100%;
+}
+
+
+
+
+.bigchart {
+    margin: 10px 0px 10px 0px;
+}

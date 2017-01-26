@@ -1,0 +1,227 @@
+﻿@using QS2015.Models;
+@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.CountryRankingModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    IndicatorModel thisIndicator = @Model.Indicator;
+
+    string measurementUnit = thisIndicator.MeasurementUnit;
+
+    // find part of the footnote corresponding to the missing value imputed from the previous year
+    string footnotex = thisIndicator.Footnote;
+    int separatorPosition = thisIndicator.Footnote.IndexOf("<ECESEP/>");
+    
+    // populate other variables
+    string thisIndicatorCode = thisIndicator.Code;
+    string thisCountryCode = ViewBag.CountryCode;
+
+    string fullTitle = thisIndicator.Name;
+    string yearlabels = "";
+    string valuelabels = "";
+    string countryName = "";
+
+    ViewBag.Title = fullTitle;
+    
+    string currentLanguage = Session["Culture"].ToString();
+}
+
+
+@if (separatorPosition > -1) {
+    // remove footnote for the imputed value
+    footnotex = footnotex.Substring(separatorPosition);
+}
+
+@{
+    // if no country is chosen, get first country in the list!
+    if (thisCountryCode.Equals(DomainsModel.DEFAULT_COUNTRY_CODE))
+    {
+        CountryDataModel countryData = @Model.Ranking[0];
+        thisCountryCode = countryData.Code;
+    }
+
+    var ranking = @Model.Ranking;
+    int i = 1;
+
+    // get time series for the chosen country
+    string curLang = Session["Culture"].ToString();
+    TimeSeriesModel ts = new TimeSeriesModel(curLang, thisCountryCode, thisIndicatorCode);
+
+    countryName = ts.Country.Name;
+}
+
+@foreach (TimeSeriesValueModel thisValue in ts.TimeSeries)
+{
+    // get year labels
+    if (yearlabels.Equals(""))
+    {
+        yearlabels = "{\"label\": \"" + thisValue.PeriodCode + "\"}";
+    }
+    else
+    {
+        yearlabels = yearlabels + ", " + "{\"label\": \"" + thisValue.PeriodCode + "\"}";
+    }
+
+
+    // get values
+
+    if (valuelabels.Equals(""))
+    {
+        valuelabels = "{\"value\": \"" + thisValue.Value + "\"}";
+    }
+    else
+    {
+        valuelabels = valuelabels + ", " + "{\"value\": \"" + thisValue.Value + "\"}";
+    }
+
+}
+
+
+<div class="quick-stats-selection-instruction"><b>@Resources.Charts_Click_Instruction</b></div>
+
+<div>
+    <b class="quick-stats-more-data">
+        <a href="@(new HtmlString(thisIndicator.SourceWebLink))">
+            @Resources.Charts_More_Data
+        </a>
+    </b>
+</div>
+
+<div id="layout" class="bigchart">
+    <div id="chartContainer">chart</div>
+</div>
+
+<div class="chart-navigation time-series-navigation-bar">
+    <div class="chart-navigation-container">
+        <a href="#0" class="previous-chart-single-btn">
+            <b>@Resources.Charts_Previous</b>
+        </a>
+        <a href="#0" class="next-chart-single-btn">
+            <b>@Resources.Charts_Next</b>
+        </a>
+    </div>
+</div>
+
+<div><b>@Resources.Charts_Footnote</b><br /> @(new HtmlString(footnotex))</div>
+<br />
+
+<script src="@Url.Content("~/fusioncharts/js/fusioncharts.js")"></script>
+<script src="@Url.Content("~/fusioncharts/js/themes/fusioncharts.theme.fint.js")"></script>
+
+<script type="text/javascript">
+    var thisIndicatorCode = '@thisIndicatorCode';
+
+    // add the first indicator to the list
+    var indCodes = [thisIndicatorCode];
+
+    FusionCharts.ready(function () {
+
+        var data = {
+            "type": "msline",
+            "renderAt": "chartContainer",
+            "width": "100%",
+            "height": "250",
+            "dataFormat": "json",
+            "id": 'mychartid',
+            "dataSource": {
+                "chart": {
+                    "caption": "@fullTitle",
+                    "xAxisname": "@Resources.Charts_Year",
+                    "yAxisName": "@measurementUnit",
+                    "theme": "fint"
+                },
+                "categories": [
+                   {
+                       "category": [ @Html.Raw(yearlabels)]
+                   }
+                ],
+                "dataset": [
+                   {
+                       "seriesname": "@countryName",
+                       "data": [ @Html.Raw(valuelabels)]
+                   }
+                ]
+            }
+        };
+
+        var multiseriesChart = new FusionCharts(data);
+        multiseriesChart.setChartAttribute("showValues", "0");
+
+        multiseriesChart.render();
+
+        window.history.pushState("object or string", "Title", "/PXWeb/@currentLanguage/Charts?IndicatorCode=" + '@thisIndicatorCode' + "&" + "CountryCode=" + '@thisCountryCode');
+    });
+
+</script>
+
+
+@{
+    CountriesModel allCountries = new CountriesModel(curLang);
+}
+
+<div class="country-table">
+
+    @foreach (CountryModel countryData in allCountries.getCountries())
+    {
+        string currentCountryCode = countryData.Code;
+        string rowid = currentCountryCode + "r";
+
+        string visibility = "";
+        if (ranking.Exists(x => x.Code.Equals(currentCountryCode)))
+        {
+            visibility = "display: table-row;";
+        }
+        else
+        {
+            visibility = "display: none;";
+        }
+
+        string countryId = countryData.Code;
+        string chkBoxId = "chk" + countryData.Code;
+
+        string flagFileName = Url.Content("~/Images/Flags/") + "f" + currentCountryCode + ".png";
+
+        <div class="country-row" style="@Html.Raw(visibility)" id="@rowid">
+
+            <div class="country-cell">
+                <img src="@flagFileName" alt="Data Maps" width="16" height="16" />
+            </div>
+
+            <div class="country-cell">
+                <a id="@countryId" class="country-selection-element" href="#0">
+                    &nbsp;@countryData.Name&nbsp;&nbsp;
+                </a>
+            </div>
+
+            <div class="country-cell">
+                <a class="country-selection-checkbox" id="@currentCountryCode" href="#0">
+                    @if (currentCountryCode.Equals(thisCountryCode))
+                    {
+                        <input id="@chkBoxId" class="country-checkbox" type="checkbox" name="@currentCountryCode" value="@currentCountryCode" checked>
+                    }
+                    else
+                    {
+                        <input id="@chkBoxId" class="country-checkbox" type="checkbox" name="@currentCountryCode" value="@currentCountryCode">
+                    }
+                </a>
+            </div>
+
+            <div class="country-cell">
+                <div class=" country-time-series">
+                    <a style="cursor: pointer; cursor: hand;" onclick="javascript: location.href = 'TimeSeries?IndicatorCode=' + thisIndicatorCode + '&CountryCode=@currentCountryCode'">
+                        &nbsp;&nbsp;@Resources.Charts_See_Table
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<br /><br />

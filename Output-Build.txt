@@ -1,0 +1,5 @@
+﻿1>------ Build started: Project: PXWeb, Configuration: Release Any CPU ------
+1>C:\MyProjects\WebDesign\QS2015\QS2015\Controllers\CountriesController.cs(16,32,16,41): warning CS0414: The field 'QS2015.Controllers.CountriesController.countries' is assigned but its value is never used
+1>C:\MyProjects\WebDesign\QS2015\QS2015\Controllers\RankingDomainsController.cs(15,30,15,37): warning CS0414: The field 'QS2015.Controllers.RankingDomainsController.domains' is assigned but its value is never used
+1>  PXWeb -> C:\MyProjects\WebDesign\QS2015\QS2015\bin\QS2015.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

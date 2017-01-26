@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="Statistical Database Website" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\MyProjects\\WebDesign\\QS2015\\QS2015\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\MyProjects\\WebDesign\\QS2015\\QS2015\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-QS2015-20150330121044;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-QS2015-20150330121044.mdf" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\MyProjects\\WebDesign\\QS2015\\QS2015\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="QuickStatsConnection-Web.config Connection String" description="" value="server=unece-statdb.unog.un.org;database=PCAxis;uid=pxwebuser;password=pwd_1985_name;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\MyProjects\\WebDesign\\QS2015\\QS2015\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='QuickStatsConnection']/@connectionString" />
+  </parameter>
+</parameters>

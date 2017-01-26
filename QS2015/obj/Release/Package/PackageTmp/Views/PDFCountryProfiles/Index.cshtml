@@ -1,0 +1,38 @@
+﻿@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.PDFCountryProfilesModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = Resources.PDFProfiles_Title;
+
+    string currentLanguage = Session["Culture"].ToString();
+}
+
+
+<div class="quick-stats-selection-instruction"><b>@Resources.PDFProfiles_Click_Instruction</b></div>
+<br />
+
+@foreach (var m in @Model.Profile)
+{
+    string countryCode = m.Code;
+    string countryName = m.Name;
+    string weblink = m.Weblink;
+
+    string flagFileName = Url.Content("~/Images/Flags/") + "f" + countryCode + ".png";
+
+    <a class="quick-stats-selection-element" href="@weblink">
+        <div>
+            <img style="vertical-align: middle;" class="country-flag" src="@flagFileName" alt="@countryName" width="16" height="16" />
+            <span>&nbsp;&nbsp;@countryName</span>
+        </div>
+
+    </a>
+}
+
+<br /><br />
+

@@ -1,0 +1,21 @@
+{"domains": [
+ {"name":"Economy", "code": "1"} ,
+ {"name":"Family", "code": "17"} ,
+ {"name":"Fertility", "code": "2"} ,
+ {"name":"Forestry", "code": "23"} ,
+ {"name":"Gender, Decision-making", "code": "20"} ,
+ {"name":"Gender, Education", "code": "19"} ,
+ {"name":"Gender, Labour Force", "code": "18"} ,
+ {"name":"Gender, Science & ICT", "code": "21"} ,
+ {"name":"Gender, Work-life balance", "code": "22"} ,
+ {"name":"General", "code": "4"} ,
+ {"name":"Health", "code": "5"} ,
+ {"name":"Millennium Development Goals", "code": "14"} ,
+ {"name":"Population", "code": "7"} ,
+ {"name":"Transport, Inland Waterways", "code": "11"} ,
+ {"name":"Transport, Pipelines", "code": "12"} ,
+ {"name":"Transport, Rail", "code": "10"} ,
+ {"name":"Transport, Road", "code": "9"} ,
+ {"name":"Transport, Road Safety", "code": "8"} 
+]
+}

@@ -1,0 +1,49 @@
+﻿@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@using QS2015.Models;
+
+@model QS2015.Models.TimeSeriesModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    CountryModel thisCountry = @Model.Country;
+    IndicatorModel thisIndicator = @Model.Indicator;
+    var thisTimeSeries = @Model.TimeSeries;
+
+    string currentLanguage = Session["Culture"].ToString();
+}
+
+@{
+    ViewBag.Title = @thisCountry.Name + ", " + @thisIndicator.Name;
+}
+
+<h2>@thisCountry.Name, @thisIndicator.Name</h2>
+
+<div class="time-series-table">
+    <div class="time-series-row">
+        <div class="time-series-cell"><b>@Resources.TimeSeries_Year</b></div>
+        <div class="time-series-cell"><b>@Resources.TimeSeries_Value</b></div>
+    </div>
+
+    @foreach (TimeSeriesValueModel thisValue in thisTimeSeries)
+{
+    <div class="time-series-row">
+
+        <div class="time-series-cell">@thisValue.PeriodCode</div>
+
+        <div class="time-series-cell">
+            <div class="float-right"><span>@thisValue.Value</span></div>
+        </div>
+
+    </div>
+
+}
+
+</div>
+
+<br /><br />
+

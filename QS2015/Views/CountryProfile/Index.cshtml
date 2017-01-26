@@ -1,0 +1,182 @@
+﻿@using QS2015.Models;
+@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.CountryProfileModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Styles/sumoselect.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{  
+    ViewBag.Title = @Model.Country.Name;
+
+    string currentLanguage = Session["Culture"].ToString();
+}
+
+<script src="@Url.Content("~/Scripts/Sumo/jquery.sumoselect.js")"></script>
+<script src="@Url.Content("~/Scripts/Sumo/sumo.init.js")"></script>
+<script>
+    function populateList() {
+        var countriesList = $('.SlectBox')[0].sumo.getCsvList();
+        OkClicked(countriesList);
+    }
+
+    function OkClicked(countriesList) {
+
+        $.getJSON("/PXWeb/@currentLanguage/CountryProfile/GetCountriesData", { firstCountryCode: firstcountry, countryCodes: countriesList }, function (data) {
+            if (data != null) {
+                updateCountryProfiles(data);
+            }
+        });
+    }
+
+    function updateCountryProfiles(data) {
+        // make appear first country in the list
+
+        $('.country-profile-first-country-name').css({
+            "display": "block",
+            "color": "darkred"
+        });
+
+        // remove old data
+        $(".country-profile-next").remove();
+
+        // add new data
+        for (var i = 0; i < data.length; i++) {
+            var indicatorCode = data[i].IndicatorCode;
+            var countryData = data[i].CountryData;
+
+            for (var j = 0; j < countryData.length; j++) {
+                var countryCode = countryData[j].CountryCode;
+                var countryName = countryData[j].CountryName;
+                var thisValue = countryData[j].Value;
+                var thisColor = countryData[j].Color;
+
+                var strRow =
+                        '<div style="background-color:' + thisColor + ';" class="country-profile-row country-profile-next"> ' +
+                        '    <div class="country-profile-cell-value"> ' +
+                        '        <a class="country-profile-next-country-name" href="Charts?IndicatorCode=' + indicatorCode + '&CountryCode=' + countryCode + '"> ' +
+                        '           &nbsp;&nbsp;' + countryName +
+                        '        </a> ' +
+                        '    </div> ' +
+                        '    <div class="country-profile-cell-value">&nbsp;</div> ' +
+                        '    <div class="country-profile-cell-value"> ' +
+                        '        <div class="country-profile-cell-value float-right"> ' +
+                        '            <a href="Charts?IndicatorCode=' + indicatorCode + '&CountryCode=' + countryCode + '"> ' +
+                                        thisValue +
+                        '            </a> ' +
+                        '        </div> ' +
+                        '    </div> ' +
+                        '</div> ';
+
+                $(strRow).insertAfter("div#ind_" + indicatorCode);
+
+            }
+
+        }
+    }
+</script>
+
+
+
+@{
+    CountryModel thisCountry = @Model.Country;
+    string firstCountryCode = @thisCountry.Code;
+    string firstCountryName = @thisCountry.Name;
+
+    String curLang = Session["Culture"].ToString();
+    CountriesModel countries = new CountriesModel(curLang);
+}
+
+<h2 class="country-profile-title">
+    <select onChange="populateList();" style="display: block; width: 100%; min-width: 100%; font-size: 1em; background-color: #efeeef; "
+            multiple="multiple"
+            placeholder="@Resources.CountryProfile_Add_Countries"
+            class="SlectBox">
+
+        @foreach (CountryModel myCountry in countries.getCountries())
+        {
+            string thisCountryCode = myCountry.Code;
+            string thisCountryName = myCountry.Name;
+
+            if (!thisCountryCode.Equals(firstCountryCode))
+            {
+                <option value="@thisCountryCode">@thisCountryName</option>
+            }
+        }
+    </select>
+    <br />
+    @firstCountryName
+</h2>
+
+<div class="country-profile-table">
+
+    @foreach (DomainDataModel d in @Model.Profile)
+    {
+        <div class="country-profile-row">
+            <div class="country-profile-domain"><b>&nbsp;@d.Name.ToUpper()</b></div>
+            <div class="country-profile-cell">&nbsp;</div>
+            <div class="country-profile-cell">&nbsp;</div>
+        </div>
+
+        <div class="country-profile-row">
+            <div class="country-profile-cell">&nbsp;</div>
+            <div class="country-profile-cell">&nbsp;</div>
+            <div class="country-profile-cell">&nbsp;</div>
+        </div>
+
+        foreach (IndicatorDataModel i in d.Indicators)
+        {
+            <div class="country-profile-row">
+                <div class="country-profile-cell-value country-profile-variable">
+                    <a class="float-left" href="Charts?IndicatorCode=@i.Code&CountryCode=@thisCountry.Code">
+                        @i.Name
+                    </a>
+                </div>
+
+                <div class="country-profile-cell-metadata">
+                    <div class="float-right">
+                        @Resources.CountryProfile_Year&nbsp;@i.PeriodCode
+                    </div>
+                </div>
+
+                <div class="country-profile-cell-metadata">
+                    <div class="float-right">
+                        @i.MeasurementUnit
+                    </div>
+                </div>
+            </div>
+
+            <div class="country-profile-row" id="ind_@i.Code">
+                <div class="country-profile-cell-value">
+                    <a class="country-profile-first-country-name" href="Charts?IndicatorCode=@i.Code&CountryCode=@thisCountry.Code">
+                        &nbsp;&nbsp;@firstCountryName
+                    </a>
+                </div>
+
+                <div class="country-profile-cell-value">&nbsp;</div>
+                <div class="country-profile-cell-value">
+                    <div class="country-profile-first-country float-right">
+                        <a href="Charts?IndicatorCode=@i.Code&CountryCode=@thisCountry.Code">
+                            @i.Value
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="country-profile-row">
+                <div class="country-profile-cell country-profile-border">&nbsp;</div>
+                <div class="country-profile-cell country-profile-border">&nbsp;</div>
+                <div class="country-profile-cell country-profile-border">&nbsp;</div>
+            </div>
+        }
+    }
+</div>
+
+<script>
+    var firstcountry = '@firstCountryCode';
+</script>
+

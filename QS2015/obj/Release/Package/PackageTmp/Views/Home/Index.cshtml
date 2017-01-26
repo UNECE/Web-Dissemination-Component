@@ -1,0 +1,424 @@
+﻿@using QS2015.Models;
+@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.HomeModel
+
+@section Styles {
+    <link href="@Url.Content("~/Leaflet/Leaflet-Leaflet-e6f8e4b/dist/leaflet.css")" rel="stylesheet" type="text/css" />
+    <!--[if lte IE 8]><link href="@Url.Content("~/Leaflet/Leaflet-Leaflet-e6f8e4b/dist/leaflet.ie.css")" rel="stylesheet" type="text/css" /><![endif]-->
+
+    <link href="@Url.Content("~/Styles/map.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    
+    ViewBag.Title = "";
+
+    string currentLanguage = Session["Culture"].ToString();
+    
+    string messageText = @Model.getMessage();
+    string messageLink = @Model.getWebLink();
+    Boolean showMessage = @Model.showMessage();
+
+}
+
+@if (showMessage == true)
+{
+    if (messageText != null && messageLink != null)
+    {
+        <p style="margin: 5px 5px 10px 5px;">
+            <a style=" color:red; font-size 12pt;" href="@messageLink">
+            <b>@messageText</b></a>
+        </p>
+    }
+}
+
+<div>
+    <div class="center quick-stats-panel">
+
+        <div class="quick-stats">
+            <a href="@Url.Action("Index", "RankingDomains", new { lang = currentLanguage }, null)">
+                <img src="@Url.Content("~/Images/QuickStats/country_rankings_w.png")" alt="Country Ranking" width="48" height="48" /><br />
+                @Resources.Home_CountryRanking
+            </a>
+        </div>
+
+        <div class="quick-stats">
+            <a href="@Url.Action("Index", "Countries", new { lang = currentLanguage }, null)">
+                <img src="@Url.Content("~/Images/QuickStats/country_profiles_w.png")" alt="Country Profile" width="48" height="48" /><br />
+                @Resources.Home_CountryProfiles
+            </a>
+        </div>
+
+        <div class="quick-stats">
+            <a href="@Url.Action("Index", "ChartDomains", new { lang = currentLanguage }, null)">
+                <img src="@Url.Content("~/Images/QuickStats/charts_w.png")" alt="Charts" width="48" height="48" /><br />
+                @Resources.Home_Charts
+            </a>
+        </div>
+
+        <div class="quick-stats">
+            <a href="@Url.Action("Index", "MapDomains", new { lang = currentLanguage }, null)">
+                <img src="@Url.Content("~/Images/QuickStats/data_maps_w.png")" alt="Data Maps" width="48" height="48" /><br />
+                @Resources.Home_Maps
+            </a>
+        </div>
+
+        <div class="quick-stats">
+            <a href="@Url.Action("Index", "PDFCountryProfiles", new { lang = currentLanguage }, null)">
+                <img src="@Url.Content("~/Images/QuickStats/Adobe_PDF_48x48.png")" alt="Data Maps" width="48" height="48" /><br />
+                @Resources.Home_PDF
+            </a>
+        </div>
+
+    </div>
+</div>
+
+@{
+    string lang = Session["Culture"].ToString();
+    string countryPropertyName = "props.name_" + lang;
+
+    string randomIndicatorCode = IndicatorModel.getRandomIndicatorCode(lang);
+
+    CountryRankingModel countryRanking = new CountryRankingModel(lang, randomIndicatorCode, 0);
+
+    IndicatorModel indicator = countryRanking.Indicator;
+
+    string indicatorCode = indicator.Code;
+    string mapTitle = indicator.Name;
+    string measurementUnit = indicator.MeasurementUnit;
+    string gradeValues = indicator.Code4GradeValues;
+    string colorValues = indicator.Code4ColorValuesA;
+
+    string valuesList = "";
+    string countriesList = "";
+
+    if (measurementUnit == null)
+    {
+        measurementUnit = "-";
+    }
+
+    
+
+    List<CountryDataModel> ranking = countryRanking.Ranking;
+    string periodCode = countryRanking.PeriodCode;
+    string fullTitle = mapTitle + ", " + Resources.Home_Year + " " + periodCode;
+
+    foreach (CountryDataModel countryData in ranking)
+    {
+        string countryCode = countryData.Code;
+        string countryValue = countryData.Value;
+
+        if (valuesList.Equals(""))
+        {
+            valuesList = countryValue;
+            countriesList = "\"" + countryCode + "\"";
+        }
+        else
+        {
+            valuesList = valuesList + ", " + countryValue;
+            countriesList = countriesList + ", \"" + countryCode + "\"";
+        }
+    }
+
+    // set file name for the map
+    string strThisMapFileName = QS2015.Connectivity.App.getAppSettingsKeyValue("MapFileName");
+
+    // set territories file name
+    string strTerritoriesFileName = QS2015.Connectivity.App.getMapTerritoriesJavascriptFilePath(lang);
+    
+}
+
+
+<div class="map-title">
+    <b id="map-title">&nbsp;&nbsp;@fullTitle</b>
+</div>
+
+
+<div id="map"></div>
+
+<div class="map-navigation">
+    <div class="map-navigation-container">
+        <a href="#0" class="previous-map-btn">
+            <b>@Resources.Home_Previous</b>
+        </a>
+        <a href="#0" class="next-map-btn">
+            <b>@Resources.Home_Next</b>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="~/Leaflet/Leaflet-Leaflet-e6f8e4b/dist/leaflet.js"></script>
+<script type="text/javascript" src="@strThisMapFileName"></script>
+<script type="text/javascript" src="@strTerritoriesFileName"></script>
+
+<script type="text/javascript">
+    $.ajaxSetup({ cache: false });
+
+    // add the first indicator to the list
+    var indCodes = [@indicatorCode];
+
+    var map = L.map('map').setView([55, 0], 2);
+
+    var hasc_codes = new Array(@Html.Raw(countriesList));
+    var myvalues = new Array(@valuesList);
+
+    var measurementUnit = '@measurementUnit';
+    var mygrades = new Array(@gradeValues);
+    var mycolors = new Array(@Html.Raw(colorValues));
+
+    // control that shows state info on hover
+    var info = L.control({ position: 'topright' });
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info');
+
+        this._div.innerHTML = '<b style="font-size:8px">@Resources.Home_Hover_Country</b>';
+
+        this.update();
+        return this._div;
+    };
+
+    info.update = function (props) {
+        if (props != null) {
+            if (props.code != "ROW") {
+                var countryName = getTerritoryName(props.code) + '';
+
+                var numcommas = numberWithSpace(getValue(props.code));
+
+                this._div.innerHTML = (props ? '<b style="font-size:0.6em">' + countryName + ': ' + numcommas + ' (' + measurementUnit + ')' + '</b>'
+                    : '<b style="font-size:8px">@Resources.Home_Hover_Country</b>');
+            }
+        }
+    };
+
+    info.addTo(map);
+
+    function getTerritoryName(code) {
+        var result = "no name";
+
+        for (i = 0; i < statesNames.titles.length; i++) {
+            var territoryCode = statesNames.titles[i].code;
+            var territoryName = statesNames.titles[i].name;
+
+            if (territoryCode == code.trim()) {
+                result = territoryName;
+                break;
+            }
+
+        }
+
+        return result;
+    }
+
+    function getValue(code_hasc) {
+        var a = findElement(hasc_codes, code_hasc);
+
+        if (a > -1) {
+            // value found
+            return myvalues[a].toFixed(1);
+        }
+
+        var thisAnswer;
+        thisAnswer = '@Resources.Home_No_Data';
+
+        return thisAnswer;
+    }
+
+    function findElement(arr, obj) {
+        var response = -1;
+
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == obj) {
+                response = i;
+                break;
+            };
+        }
+
+        return response;
+    }
+
+    // get color depending on population value
+    function getColor(d) {
+
+        var index = -1;
+        for (index = mygrades.length - 1; index >= 0; index--) {
+            var thisval = mygrades[index];
+            if (d > thisval) {
+                break;
+            }
+        }
+
+        if (index == -1) {
+            // color is not found, return the default one
+            return '#FFFFFF';
+        } else {
+            return mycolors[index];
+        }
+
+    }
+
+    function style(feature) {
+        return {
+            weight: 1,
+            opacity: 1,
+            color: 'white',
+            dashArray: '',
+            fillOpacity: 0.7,
+            fillColor: getColor(getValue(feature.properties.code))
+        };
+    }
+
+    function highlightFeature(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 1,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera) {
+            layer.bringToFront();
+        }
+
+        info.update(layer.feature.properties);
+    }
+
+    var geojson;
+
+    function resetHighlight(e) {
+        geojson.resetStyle(e.target);
+        info.update();
+    }
+
+    /*
+    function zoomToFeature(e) {
+        window.location.href = 'http://www.google.com';
+        map.fitBounds(e.target.getBounds());
+    }
+    */
+
+    function numberWithSpace(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+        return parts.join(".");
+    }
+
+    function showElement(id) {
+        document.all[id].style.visibility = 'visible';
+    }
+
+    function showTimeSeries(e) {
+        var layer = e.target;
+        var country_code = layer.feature.properties.code;
+
+        if (props.code == "ROW") {
+            map.closePopup();
+        } else {
+            window.location.href = 'readtimeseriesFlash.asp?qs_id=1&c_id=' + country_code + '&lang=1';
+        }
+
+    }
+
+    function onEachFeature(feature, layer) {
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            // click: zoomToFeature
+            click: showTimeSeries
+        });
+    }
+
+
+    geojson = L.geoJson(statesData, {
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+
+
+    // color grades
+    var legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = mygrades,
+            labels = [],
+            from, to;
+
+        for (var i = 0; i < grades.length; i++) {
+            from = grades[i];
+            to = grades[i + 1];
+
+            labels.push(
+                '<i style="background:' + getColor(from + 0.000001) + '"></i> ' +
+                numberWithSpace(from) + ((to != null) ? '&nbsp;&ndash;&nbsp;' + numberWithSpace(to) : '+')
+                );
+        }
+
+        div.innerHTML = labels.join('<br>');
+
+        return div;
+    };
+
+    legend.addTo(map);
+
+
+
+</script>
+
+
+<br />
+
+
+@{
+    // make sure map should be displayed
+    string showUnece = QS2015.Connectivity.App.getAppSettingsKeyValue("Show.HopePage.UNECE");
+
+    if (!showUnece.Equals("true"))
+    {
+        return;
+    }
+    
+}
+
+<div id="pagewrapper" class="group">
+    <div class="grid center">
+        @{
+            BranchesModel branches = new BranchesModel(lang);
+
+            foreach (BranchModel b in branches.getBranches())
+            {
+                string imageFileName = b.SortCode + "_" + b.Id + ".png";
+
+                <div class="cube-domain item">
+                    <img class="domain-image" src="@Url.Content("~/Images/Branches/" + imageFileName)" alt="Charts" />
+
+                    <br />
+                    <b class="cube-domain">@b.Title</b>
+                    <br />
+
+                    @foreach (CubeGroupModel g in b.CubeGroups)
+                    {
+                        <a href="@g.WebLink" class="cube-group quick-stats-selection-element">
+                            <div>
+                                @g.Title
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>
+
+

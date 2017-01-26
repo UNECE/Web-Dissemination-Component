@@ -1,0 +1,36 @@
+﻿@using QS2015.Models;
+@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.DomainsModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = Resources.CountryRankings_Title;
+
+    string currentLanguage = Session["Culture"].ToString();
+}
+
+<div class="quick-stats-selection-instruction"><b>@Resources.CountryRankings_Click_Instruction</b></div>
+
+@foreach (DomainModel m in @Model.getDomains())
+{    
+    <div class="quick-stats-selection-group">
+        <b>@m.Name</b>
+    </div>
+
+    foreach (IndicatorModel i in m.Indicators)
+    {
+        <a class="quick-stats-selection-element" href="@Url.Action("Index", "CountryRanking", new { IndicatorCode = @i.Code, lang = currentLanguage })">
+            <div>
+                @i.Name
+            </div>
+        </a>
+    }
+}
+
+<br /><br />
+

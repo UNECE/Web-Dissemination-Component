@@ -1,0 +1,252 @@
+﻿@using QS2015.Models;
+@using QS2015.Resources;
+@using QS2015.Connectivity;
+
+@model QS2015.Models.CountryRankingModel
+
+@section Styles {
+    <link href="@Url.Content("~/Styles/selection.css?v=" + AppGlobalVariables.AppVersion)" rel="stylesheet" type="text/css" />
+}
+
+@{
+    IndicatorModel thisIndicator = @Model.Indicator;
+    string indicatorName = thisIndicator.Name;
+    string colorScale = thisIndicator.ColorScale.ToUpper();
+
+    ViewBag.Title = indicatorName;
+    var ranking = @Model.Ranking;
+
+    int intMaxBarWidth = 70;
+    int intLongBarIndentation = 1;
+
+    string strMaxBarWidth = intMaxBarWidth.ToString();
+    string strValueBarWidth = (100 - intMaxBarWidth - 1).ToString();
+    string strLongBarIndentation = intLongBarIndentation.ToString();
+    string strLongBarWidth = (intMaxBarWidth - intLongBarIndentation).ToString();
+
+    string currentLanguage = Session["Culture"].ToString();
+    
+    string strScaleLegend = "";
+
+}
+
+@if (colorScale.Equals(IndicatorModel.SCALE_LOG_10))
+{
+    strScaleLegend = Resources.Logarithmic_Scale_Base_10;
+} else if (colorScale.Equals(IndicatorModel.SCALE_LOG_2)) {
+    strScaleLegend = Resources.Logarithmic_Scale_Base_2;
+}
+
+<h3>@indicatorName, @Resources.CountryRanking_Year @Model.PeriodCode <font style="color: red;">@strScaleLegend</font></h3>
+
+<div>
+    <b class="quick-stats-more-data">
+        <a href="@(new HtmlString(thisIndicator.SourceWebLink))">
+            @Resources.CountryRanking_More_Data
+        </a>
+    </b>
+</div>
+
+<div class="container">
+    <ul class="tabs">
+        <li class="active"><a href="#tab1">@Resources.CountryRankings_Ranking</a></li>
+        <li class=""><a href="#tab2">@Resources.CountryRankings_Table</a></li>
+    </ul>
+    <div class="tab_container">
+        <div id="tab1" class="tab_content" style="display: none;">
+
+            @{
+                // get maximum of the first and last values after converting them into positive numbers
+                float tVal = float.Parse(ranking.ElementAt(0).Value, System.Globalization.CultureInfo.InvariantCulture);
+                float nVal = float.Parse(ranking.ElementAt(ranking.Count - 1).Value, System.Globalization.CultureInfo.InvariantCulture);
+
+                float floatMaxVal = Math.Max(Math.Abs(tVal), Math.Abs(nVal));
+
+                float floatHighestValue;
+                if (colorScale.Equals(IndicatorModel.SCALE_LINEAR))
+                {                    
+                    floatHighestValue = floatMaxVal;
+                }
+                else if (colorScale.Equals(IndicatorModel.SCALE_LOG_10))
+                {
+                    floatHighestValue = (float)Math.Log(floatMaxVal, 10);
+                }
+                else if (colorScale.Equals(IndicatorModel.SCALE_LOG_2))
+                {
+                    floatHighestValue = (float)Math.Log(floatMaxVal, 2);
+                }
+                else
+                {
+                    floatHighestValue = floatMaxVal;
+                }
+                        
+                
+            }
+
+            @foreach (CountryDataModel countryData in ranking)
+            {
+                string countryName = countryData.Name;
+                string thisValue = countryData.Value;
+
+                float floatCountryVal = float.Parse(thisValue, System.Globalization.CultureInfo.InvariantCulture);
+                float floatCountryValue;
+
+                if (colorScale.Equals(IndicatorModel.SCALE_LINEAR))
+                {
+                    floatCountryValue = floatCountryVal;
+                }
+                else if (colorScale.Equals(IndicatorModel.SCALE_LOG_10))
+                {
+                    floatCountryValue = (float)Math.Log(floatCountryVal, 10);
+
+                    if (floatCountryValue < 0)
+                    {
+                        floatCountryValue = 0;                        
+                    }
+                }
+                else if (colorScale.Equals(IndicatorModel.SCALE_LOG_2))
+                {
+                    floatCountryValue = (float)Math.Log(floatCountryVal, 2);
+
+                    if (floatCountryValue < 0)
+                    {
+                        floatCountryValue = 0;
+                    }
+                }
+                else
+                {
+                    floatCountryValue = floatCountryVal;
+                }              
+                
+                float floatBarWidth = floatCountryValue / floatHighestValue * intMaxBarWidth;
+                int intBarWidth = (int)Math.Abs(floatBarWidth);
+                string strBarWidth = intBarWidth.ToString();
+
+                int intCountryNameIndentation = ((int)Math.Abs(floatBarWidth)) + 1;
+
+                string strShortBarWidth = (intMaxBarWidth - intCountryNameIndentation).ToString();
+                
+                string strCountryNameIndentation = intCountryNameIndentation.ToString();
+
+                <div class="country-ranking-bar">
+                    <div class="country-ranking-value" style="left:@strMaxBarWidth%; max-width: @strValueBarWidth%">
+                        <div>
+                            <div>
+                                <a href="Charts?IndicatorCode=@thisIndicator.Code&CountryCode=@countryData.Code">@thisValue</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="country-ranking-coloring">
+                        @if (floatCountryVal > 0)
+                        {
+                            <img style="width: @strBarWidth%" src="~/Images/dotPositive.jpg">
+                        }
+                        else
+                        {
+                            <img style="width: @strBarWidth%" src="~/Images/dotNegative.jpg">
+                        }
+                    </div>
+
+                    @if (intBarWidth > intMaxBarWidth / 2)
+                    {
+                        <div class="country-ranking-name country-ranking-name-color-left" style="left: @strLongBarIndentation%; max-width: @strLongBarWidth%">
+                            <a href="Charts?indicatorcode=@thisIndicator.Code&countrycode=@countryData.Code">
+                                @countryName
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="country-ranking-name country-ranking-name-color-right" style="left: @strCountryNameIndentation%; max-width: @strShortBarWidth%">
+                            <a href="Charts?IndicatorCode=@thisIndicator.Code&CountryCode=@countryData.Code">@countryName</a>
+                        </div>
+                    }
+
+
+                </div>
+
+            }
+        </div>
+
+        <div id="tab2" class="tab_content" style="display: none;">
+            @{
+                int i = 1;
+            }
+
+            <div class="country-ranking-table">
+                <div class="country-ranking-row">
+                    <div class="country-ranking-cell"><b>@Resources.CountryRanking_Numbering&nbsp;&nbsp;</b></div>
+                    <div class="country-ranking-cell"></div>
+                    <div class="country-ranking-cell"><b>@Resources.CountryRankings_Country</b></div>
+                    <div class="country-ranking-cell"><b>@Resources.CountryRankings_Value</b></div>
+                </div>
+
+                @foreach (CountryDataModel countryData1 in ranking)
+                {
+                    string flagFileName = Url.Content("~/Images/Flags/") + "f" + countryData1.Code + ".png";
+
+                    <div class="country-ranking-row">
+                        <div class="country-ranking-cell">
+                            @i.ToString()
+                        </div>
+
+                        <div class="country-ranking-cell">
+                            <div>
+                                <img class="country-flag" src="@flagFileName" alt="Data Maps" width="16" height="16" />
+                            </div>
+                        </div>
+
+                        <div class="country-ranking-cell">
+                            <div>
+                                <a href="Charts?IndicatorCode=@thisIndicator.Code&CountryCode=@countryData1.Code">
+                                    <span class="country-ranking-country-name">@countryData1.Name</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="country-ranking-cell">
+                            <div class="float-right">
+                                <a href="Charts?IndicatorCode=@thisIndicator.Code&CountryCode=@countryData1.Code"><span class="country-ranking-country-value">@countryData1.Value</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    i++;
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div class="quick-stats-footnote">
+        <b>@Resources.CountryRankings_Footnote</b>
+        <br />
+        @(new HtmlString(thisIndicator.Footnote))
+    </div>
+
+    <br /><br />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Default Action
+            $(".tab_content").hide(); //Hide all content
+            $("ul.tabs li:first").addClass("active").show(); //Activate first tab
+            $(".tab_content:first").show(); //Show first tab content
+
+            //On Click Event
+            $("ul.tabs li").click(function () {
+                $("ul.tabs li").removeClass("active"); //Remove any "active" class
+                $(this).addClass("active"); //Add "active" class to selected tab
+                $(".tab_content").hide(); //Hide all tab content
+                var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+                $(activeTab).fadeIn(); //Fade in the active content
+                return false;
+            });
+
+        });
+    </script>
